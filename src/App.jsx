@@ -1,13 +1,18 @@
-import { Synth } from './Synth';
+import { useState } from 'react'
+import StartMenu from './StartMenu';
+
+
 
 
 function App() {
+
+  const [startMenuOpen, setStartMenuOpen] = useState(false);
   return (
-    <div className="flex flex-col h-screen bg-blue-900 text-white">
+    <div className="relative flex flex-col h-screen bg-blue-900 text-white overflow-hidden">
       <div className="flex items-center justify-center flex-1 bg-cover bg-center" style={{ backgroundImage: "url('/rachel.gif')" }}>
         {/* Player Window */}
 
-        <Synth />
+        {/* <Synth /> */}
         {/* <motion.div 
         drag 
         dragTransition={{ power: 0, timeConstant: 0 }}>
@@ -73,12 +78,20 @@ function App() {
                 </div>
               </div>
           </div>
+
+          <StartMenu isOpen={startMenuOpen} onClose={() => setStartMenuOpen(false)} />
         {/* </motion.div> */}
       </div>
 
+      
+      
       {/* Footer taskbar */}
       <footer className="h-[3vh] taskbar w-full text-black px-2 py-1 flex items-center justify-between">
-        <button className="button">Start</button>
+        <button className="button" onClick={() => setStartMenuOpen(!startMenuOpen)}>
+          Start
+        </button>
+
+        
         <div>{new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
       </footer>
     </div>
