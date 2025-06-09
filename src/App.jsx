@@ -41,8 +41,8 @@ function App() {
 
 
   return (
-    <div className="relative flex flex-col h-screen bg-blue-900 text-white overflow-hidden">
-      <div className="flex items-center justify-center flex-1 bg-cover bg-center" style={{ backgroundImage: "url('/rachel.gif')" }}>
+    <div className="relative flex flex-col h-screen text-white overflow-hidden bg-cover bg-center"  style={{ backgroundImage: "url('/rachel.gif')" }}>
+      <div className="flex items-center justify-center flex-1 bg-cover bg-center">
         {/* Player Window */}
 
         {/* <Synth /> */}
@@ -120,15 +120,15 @@ function App() {
                 </div>
               </div>
           </div>
-
-          <StartMenu isOpen={startMenuOpen} onClose={() => setStartMenuOpen(false)} />
+          
+          
         {/* </motion.div> */}
       </div>
 
-      
+      <StartMenu isOpen={startMenuOpen} onClose={() => setStartMenuOpen(false)} />
       
       {/* Footer taskbar */}
-      <footer className="h-[3vh] taskbar w-full text-black px-2 py-1 flex items-center justify-between">
+      <footer className="h-[3vh] taskbar w-full text-black px-2 flex items-center justify-between overflow-hidden bg-blue-100">
         <button className="button" onClick={() => setStartMenuOpen(!startMenuOpen)}>
           Start
         </button>

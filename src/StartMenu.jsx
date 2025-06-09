@@ -1,5 +1,6 @@
 // StartMenu.jsx
 import { useState } from "react";
+import { createPortal } from "react-dom";
 
 function StartMenu({ isOpen, onClose }) {
   const [menuLevel, setMenuLevel] = useState('main');
@@ -36,8 +37,10 @@ function StartMenu({ isOpen, onClose }) {
 
   }
 
-  return (
-    <div className="window absolute bottom-[3vh] left-0 z-50 w-[240px]">
+  return createPortal(
+    <div className="window custom-start-menu fixed bottom-[3vh] left-0 z-50 w-[300px] h-[360px] pointer-events-auto">
+
+
       <div className="title-bar">
         <div className="title-bar-text">Ender Start Menu</div>
         <div className="title-bar-controls">
@@ -90,7 +93,8 @@ function StartMenu({ isOpen, onClose }) {
         )}
 
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
 
