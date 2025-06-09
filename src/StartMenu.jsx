@@ -5,6 +5,7 @@ function StartMenu({ isOpen, onClose }) {
   const [menuLevel, setMenuLevel] = useState('main');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [currentUser, setCurrentUser] = useState('');
 
 
   if (!isOpen) return null;
@@ -22,6 +23,7 @@ function StartMenu({ isOpen, onClose }) {
 
       const data = await res.json();
       if (res.ok) {
+        setCurrentUser(username)
         alert("✅ Login successful!");
         setMenuLevel('main'); // or redirect, etc.
       } else {
@@ -43,6 +45,11 @@ function StartMenu({ isOpen, onClose }) {
         </div>
       </div>
       <div className="window-body">
+
+      {currentUser && (
+        <p>{currentUser}</p>
+      )}
+
 
         {menuLevel === 'main' && (
         <ul className="menu">
