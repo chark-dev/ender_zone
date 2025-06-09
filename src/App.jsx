@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import StartMenu from './StartMenu';
 
 
@@ -6,7 +6,40 @@ import StartMenu from './StartMenu';
 
 function App() {
 
+
+  const [playing, setPlaying] = useState(false);
+
+  const audioRef = useRef(null);
+
   const [startMenuOpen, setStartMenuOpen] = useState(false);
+
+  const togglePlay = () => {
+    const audio = audioRef.current;
+    if (!audio) {
+      return
+    }
+
+    if (playing) {
+      audio.pause();
+      audio.currentTime = 0;
+      setPlaying(false);
+    }
+    else {
+      audio.play()
+      .then(() => setPlaying(true))
+      .catch(err => console.error("Playback error:", err))
+    }
+  }
+
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (audio){
+      audio.load();
+    }
+  }, [])
+
+
   return (
     <div className="relative flex flex-col h-screen bg-blue-900 text-white overflow-hidden">
       <div className="flex items-center justify-center flex-1 bg-cover bg-center" style={{ backgroundImage: "url('/rachel.gif')" }}>
@@ -19,6 +52,15 @@ function App() {
         dragMomentum={false}
         dragSnapToOrigin={false}
         dragElastic={0} */}
+
+          <audio
+            ref={audioRef}
+            src="http://127.0.0.1:5000/audio/Dinosaur.mp3"
+            onEnded={() => setPlaying(false)}
+            preload="auto"
+        // autoplay // Only works if browser allows it
+          />
+
           <div className="window w-[480px] max-w-full absolute">
               <div className="title-bar header-draggable">
                 <div className="title-bar-text">Ender-Zone</div>
@@ -61,7 +103,7 @@ function App() {
 
                     {/* Buttons */}
                     <div className="flex gap-2">
-                      <button className="button">Stop</button>
+                      <button className="button" onClick={togglePlay}>{playing ? "Stop" : "Play"}</button>
                       <button className="button">❤️</button>
                       <button className="button">👤</button>
                       <button className="button">⚙️</button>
